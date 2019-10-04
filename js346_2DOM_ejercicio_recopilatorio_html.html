@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ejercicio recopilatorio</title>
+	<meta charset="UTF-8">
+
+
+	
+	<script>
+		var arrayImagenes = ['img/039.jpg','img/053.jpg','img/055.jpg','img/079.jpg','img/097.jpg'];
+		var moneda;
+		var textoMoneda;
+		window.onload = function () {
+			document.getElementById('boton').addEventListener('click', enviarFormulario);
+			document.getElementById('monedas').addEventListener('change', buscarMoneda);
+		}
+
+		function enviarFormulario() {
+			var nombre = document.getElementById('nombre').value;
+			var direccion = document.getElementById('direccion').value;
+			if (direccion.trim()=='' || nombre.trim()=='') {
+				if (nombre.trim() =='') {
+					document.getElementById('nombre').value = ''
+					document.getElementById('nombre').classList.add('color');
+					alert('Nombre del cliente es obligatorio');
+				}
+				if (direccion.trim() =='') {
+					document.getElementById('direccion').value = ''
+					document.getElementById('direccion').classList.add('color');
+					alert('Direccion es obligatorio');
+				}	
+				
+			} else {
+				//document.getElementById('resultado').innerHTML= 'se enviará la moneda a ' + document.getElementById('nombre').value
+				//alert (moneda)
+				document.getElementById('nombre').classList.remove('color');
+				document.getElementById('direccion').classList.remove('color');
+				if (moneda!='000') {
+					document.getElementById('resultado').innerHTML= 'se enviará la moneda ' + textoMoneda + ' a: ' + document.getElementById('nombre').value + ' ' +document.getElementById('direccion').value 
+				} else {
+					document.getElementById('resultado').innerHTML= 'se enviará la moneda un paquete multimoneda a ' + document.getElementById('nombre').value + ' ' +document.getElementById('direccion').value 
+					document.getElementById('resultado').classList.add('div.resultado');
+				}
+			}
+	
+		}
+		
+		function buscarMoneda() {
+			//recuperar moneda seleccionada
+			moneda = document.getElementById('monedas').value;
+			//recuperar nombre del producto
+   			var indice = document.getElementById('monedas').selectedIndex;
+     		textoMoneda = document.getElementById('monedas')[indice].innerText;
+     		//alert(textoMoneda)
+			if (moneda !='000') {
+				document.getElementById('imagen').innerHTML='<img src=img/' + moneda + '.jpg>';
+			} else {
+				document.getElementById('imagen').innerHTML='';
+			}
+		}
+	</script>
+
+	<style type="text/css">
+		div.wraper {
+			display: block;
+			background-color: white; 
+			color: black;
+			width: 1000px;
+			padding: 25px;
+			margin: 5px auto auto auto;
+			box-sizing: border-box;	
+			text-align: left;
+			border: 2px solid black;
+			border-radius: 25px;
+		}
+		div#imagen {
+			width: 250px;
+			height: 220px;
+			border: 2px solid gold;
+			padding: 10px;
+			display: inline-block;
+			margin-left: 10px;
+			vertical-align: top;
+		}
+
+		#imagen img {
+			width: 250px;
+		}
+		div.resultado {
+			height: 150px;
+			color: green;
+			box-sizing: border-box;
+			background-color: pink;
+			font-size: 5em;
+			padding: 20px;
+		}
+		label {
+			width: 180px;
+			display: inline-block;
+			vertical-align: top;
+		}
+		#resultado {
+			width: 650px;
+			height: 50px;
+			background-color: grey
+		}
+		form {
+			display: inline-block;
+			vertical-align: top;
+		}
+		.color {
+			background-color: lightgrey;
+			border: 1px solid red;
+		}
+		#nombre:invalid, #direccion:invalid{
+			background-color: lightgrey;
+		}
+	</style>
+</head>
+<body>
+	<div class="wraper">
+		<form name='formulario'>
+			<label>Nombre y apellidos</label>
+			<input type='text' id='nombre' placeholder="introduce nombre del cliente" required><br><br>
+			<label>Dirección</label>
+			<input type='text' id='direccion' placeholder="introduce dirección del cliente"required><br><br>
+			<label>Eliga una moneda</label>
+			<select id='monedas' required>
+				<option value='000'>Seleccione una moneda</option>
+				<option value='039'>1 peseta 1a república</option>
+				<option value='053'>8 escudos Felipe V</option>
+				<option value='055'>5 céntimos escudo Isabel II</option>
+				<option value='079'>5 quarts Fernando VII</option>
+				<option value='097'>200 pesetas JCI rara</option>
+			</select>
+			<br><br>
+			<input type="button" id="boton" Value="Enviar"><br><br>
+			<div id="resultado"></div>
+		</form>
+		<div id='imagen'></div>
+	</div>
+</body>
+</html> 
